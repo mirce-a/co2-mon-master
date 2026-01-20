@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"time"
 
 	"github.com/grandcat/zeroconf"
+	masterserver "github.com/mirce-a/co2-mon-master/services/mon-backend/master-server"
 )
 
 func discoverSlaves() {
@@ -29,14 +29,6 @@ func discoverSlaves() {
 }
 
 func main() {
-
-	go func() {
-		for {
-			discoverSlaves()
-			time.Sleep(5)
-		}
-	}()
-
-	fmt.Printf("hello world")
-	select {}
+	server := masterserver.NewMasterServer()
+	server.ListenAndServe()
 }
